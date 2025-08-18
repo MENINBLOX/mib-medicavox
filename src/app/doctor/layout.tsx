@@ -1,12 +1,12 @@
 'use client';
 
-import { Flex, Layout } from 'antd';
+import { Flex } from 'antd';
 import { useAuthStore } from '@/stores/authStore';
-import PatientInfo from './components/PatientInfo';
-import EndConsultationButton from './components/EndConsultationButton';
-import LanguageChangeButton from './components/LanguageChangeButton';
-
-const { Header, Content } = Layout;
+import CommonHeader from '@/components/common/CommonHeader';
+import CommonLayout from '@/components/common/CommonLayout';
+import PatientInfo from '@/components/doctor/PatientInfo';
+import EndConsultationButton from '@/components/doctor/EndConsultationButton';
+import LanguageChangeButton from '@/components/language/LanguageChangeButton';
 
 export default function DoctorLayout({
   children,
@@ -20,27 +20,20 @@ export default function DoctorLayout({
   }
 
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Header
-        style={{
-          background: '#fff',
-          borderBottom: '1px solid #f0f0f0',
-          padding: '0 24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Flex>
-          <PatientInfo />
-        </Flex>
-        <Flex gap="small">
-          <LanguageChangeButton />
-          <EndConsultationButton />
-        </Flex>
-      </Header>
-
-      <Content style={{ padding: 0, overflow: 'scroll' }}>{children}</Content>
-    </Layout>
+    <CommonLayout
+      header={
+        <CommonHeader>
+          <Flex>
+            <PatientInfo />
+          </Flex>
+          <Flex gap="small">
+            <LanguageChangeButton />
+            <EndConsultationButton />
+          </Flex>
+        </CommonHeader>
+      }
+    >
+      {children}
+    </CommonLayout>
   );
 }

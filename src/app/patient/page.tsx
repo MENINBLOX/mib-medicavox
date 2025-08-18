@@ -1,13 +1,13 @@
-import { Col, Flex } from 'antd';
+import { Flex } from 'antd';
 import Title from 'antd/es/typography/Title';
-import styles from '../page.module.css';
+import Center from '@/components/common/Center';
 
 export default function PatientPage() {
   return (
-    <div className={styles.centerLayout}>
+    <Center>
       <Flex vertical align="center">
         <Title>환자</Title>
       </Flex>
-    </div>
+    </Center>
   );
 }

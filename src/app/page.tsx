@@ -1,11 +1,11 @@
 import { Card, Col, Flex } from 'antd';
 import Title from 'antd/es/typography/Title';
 import Link from 'next/link';
-import styles from './page.module.css';
+import Center from '@/components/common/Center';
 
 export default function Home() {
   return (
-    <div className={styles.centerLayout}>
+    <Center>
       <Col>
         <Title level={1}>Medicavox</Title>
         <Flex gap="middle" justify="center">
@@ -17,6 +17,6 @@ export default function Home() {
           </Link>
         </Flex>
       </Col>
-    </div>
+    </Center>
   );
 }

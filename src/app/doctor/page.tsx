@@ -3,28 +3,28 @@
 import { Button, Flex } from 'antd';
 import Title from 'antd/es/typography/Title';
 import { useAuthStore } from '@/stores/authStore';
-import styles from '../page.module.css';
+import Center from '@/components/common/Center';
 
 export default function DoctorPage() {
   const { isLoggedIn, login, logout } = useAuthStore();
 
   if (isLoggedIn) {
     return (
-      <div className={styles.centerLayout}>
+      <Center>
         <Flex vertical align="center">
           <Title>의료진 로그인됨</Title>
           <Button onClick={logout}>로그아웃</Button>
         </Flex>
-      </div>
+      </Center>
     );
   }
 
   return (
-    <div className={styles.centerLayout}>
+    <Center>
       <Flex vertical align="center">
         <Title>의료진</Title>
         <Button onClick={login}>로그인</Button>
       </Flex>
-    </div>
+    </Center>
   );
 }

@@ -2,8 +2,6 @@
 
 import '@ant-design/v5-patch-for-react-19';
 
-export default function AntdCompat() {
+export default function AntdCompatibility() {
   return null;
 }
-
-

@@ -1,7 +1,6 @@
 'use client';
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export type AppLanguage = 'en' | 'ko' | 'id';
 
@@ -17,27 +16,21 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   { code: 'id', nativeLabel: 'Bahasa Indonesia', flag: '🇮🇩' },
 ];
 
-function getLabelByCode(code: AppLanguage): string {
+export function getLabelByCode(code: AppLanguage | null): string {
+  if (!code) {
+    return '언어 선택';
+  }
+
   const found = LANGUAGE_OPTIONS.find((opt) => opt.code === code);
   return found ? found.nativeLabel : code;
 }
 
 interface LanguageState {
-  language: AppLanguage;
-  languageLabel: string;
+  language: AppLanguage | null;
   setLanguage: (language: AppLanguage) => void;
 }
 
-export const useLanguageStore = create<LanguageState>()(
-  persist(
-    (set) => ({
-      language: 'ko',
-      languageLabel: getLabelByCode('ko'),
-      setLanguage: (language: AppLanguage) =>
-        set({ language, languageLabel: getLabelByCode(language) }),
-    }),
-    {
-      name: 'language-storage',
-    }
-  )
-);
+export const useLanguageStore = create<LanguageState>()((set) => ({
+  language: null,
+  setLanguage: (language: AppLanguage) => set({ language }),
+}));
