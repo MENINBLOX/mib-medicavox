@@ -1,4 +1,4 @@
-import { Col, Flex } from 'antd';
+import { Flex } from 'antd';
 import Title from 'antd/es/typography/Title';
 import styles from '../page.module.css';
 
