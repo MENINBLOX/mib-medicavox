@@ -1,0 +1,12 @@
+.card {
+  min-width: 220px;
+  text-align: center;
+}
+
+.selected {
+  border-color: #1677ff;
+}
+
+.flag {
+  font-size: 36px;
+}

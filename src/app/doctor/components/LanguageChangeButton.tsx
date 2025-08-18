@@ -3,9 +3,11 @@
 import { Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { GlobalOutlined } from '@ant-design/icons';
+import { useLanguageStore } from '@/stores/languageStore';
 
 export default function LanguageChangeButton() {
   const router = useRouter();
+  const { languageLabel } = useLanguageStore();
 
   const handleClick = () => {
     router.push('/doctor/language');
@@ -14,7 +16,7 @@ export default function LanguageChangeButton() {
   return (
     <Button type="default" onClick={handleClick}>
       <GlobalOutlined />
-      언어 변경
+      {languageLabel}
     </Button>
   );
 }
