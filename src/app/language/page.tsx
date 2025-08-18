@@ -9,15 +9,20 @@ import {
 import styles from '../../page.module.css';
 import langStyles from './page.module.css';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/stores/authStore';
 
 const { Title, Text } = Typography;
 
 export default function LanguageSelectionPage() {
   const { language, setLanguage } = useLanguageStore();
   const router = useRouter();
+  const { isLoggedIn, setPreferredLanguage } = useAuthStore();
 
   const handleClickLanguage = (code: AppLanguage) => {
     setLanguage(code);
+    if (isLoggedIn) {
+      setPreferredLanguage(code);
+    }
     router.back();
   };
 

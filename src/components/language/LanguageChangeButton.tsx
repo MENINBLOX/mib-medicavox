@@ -3,11 +3,12 @@
 import { Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { GlobalOutlined } from '@ant-design/icons';
-import { useLanguageStore } from '@/stores/languageStore';
+import { getLabelByCode, useLanguageStore } from '@/stores/languageStore';
 
 export default function LanguageChangeButton() {
   const router = useRouter();
-  const { languageLabel } = useLanguageStore();
+  const { language } = useLanguageStore();
+  const languageLabel = getLabelByCode(language);
 
   const handleClick = () => {
     router.push('/language');
