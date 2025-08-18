@@ -2,9 +2,9 @@
 
 import { Flex, Layout } from 'antd';
 import { useAuthStore } from '@/stores/authStore';
-import PatientInfo from './components/PatientInfo';
-import EndConsultationButton from './components/EndConsultationButton';
-import LanguageChangeButton from './components/LanguageChangeButton';
+import PatientInfo from '@/components/doctor/PatientInfo';
+import EndConsultationButton from '@/components/doctor/EndConsultationButton';
+import LanguageChangeButton from '@/components/language/LanguageChangeButton';
 
 const { Header, Content } = Layout;
 

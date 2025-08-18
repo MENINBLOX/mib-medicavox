@@ -10,7 +10,7 @@ export default function LanguageChangeButton() {
   const { languageLabel } = useLanguageStore();
 
   const handleClick = () => {
-    router.push('/doctor/language');
+    router.push('/language');
   };
 
   return (
