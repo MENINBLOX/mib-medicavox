@@ -5,19 +5,19 @@ import Title from 'antd/es/typography/Title';
 import { useAuthStore } from '@/stores/authStore';
 import Center from '@/components/common/Center';
 import { useTranslation } from '@/hooks/useTranslation';
+import ChatLog from '@/components/chat/ChatLog';
+import ChatActions from '@/components/chat/ChatActions';
 
 export default function DoctorPage() {
-  const { isLoggedIn, login, logout } = useAuthStore();
+  const { isLoggedIn, login } = useAuthStore();
   const { t } = useTranslation();
 
   if (isLoggedIn) {
     return (
-      <Center>
-        <Flex vertical align="center">
-          <Title>{t('doctor.loggedIn')}</Title>
-          <Button onClick={logout}>{t('doctor.logout')}</Button>
-        </Flex>
-      </Center>
+      <>
+        <ChatLog />
+        <ChatActions />
+      </>
     );
   }
 
