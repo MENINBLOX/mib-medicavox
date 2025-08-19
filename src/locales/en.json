@@ -12,7 +12,13 @@
     "login": "Login",
     "logout": "Logout",
     "loggedIn": "Medical Staff Logged In",
-    "endConsultation": "End Consultation"
+    "endConsultation": "End Consultation",
+    "endConfirm": {
+      "title": "End Consultation",
+      "description": "The conversation with the patient will be ended.\nDo you want to end the consultation?",
+      "ok": "End consultation",
+      "cancel": "Continue consultation"
+    }
   },
   "patient": {
     "title": "Patient",
