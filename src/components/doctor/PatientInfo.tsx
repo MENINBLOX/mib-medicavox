@@ -1,9 +1,7 @@
 'use client';
 
-import { Flex, Typography } from 'antd';
+import { Flex } from 'antd';
 import { useTranslation } from '@/hooks/useTranslation';
-
-const { Text } = Typography;
 
 type GenderCode = 'male' | 'female';
 
@@ -30,14 +28,14 @@ export default function PatientInfo() {
 
   return (
     <Flex align="center" gap="small">
-      <Text strong>{patient.name}</Text>
-      <Text>{t(`patient.gender.${patient.gender}`)}</Text>
-      <Text>
+      <span style={{ fontWeight: 'bold' }}>{patient.name}</span>
+      <span>{t(`patient.gender.${patient.gender}`)}</span>
+      <span>
         {patient.age}
         {t('patient.yearsOldSuffix')}
-      </Text>
-      <Text>{patient.nationality}</Text>
-      <Text>{patient.language}</Text>
+      </span>
+      <span>{patient.nationality}</span>
+      <span>{patient.language}</span>
     </Flex>
   );
 }
