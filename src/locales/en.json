@@ -1,0 +1,28 @@
+{
+  "common": {
+    "selectLanguage": "Select Language",
+    "medicavox": "Medicavox"
+  },
+  "home": {
+    "doctor": "Medical Staff",
+    "patient": "Patient"
+  },
+  "doctor": {
+    "title": "Medical Staff",
+    "login": "Login",
+    "logout": "Logout",
+    "loggedIn": "Medical Staff Logged In",
+    "endConsultation": "End Consultation"
+  },
+  "patient": {
+    "title": "Patient",
+    "yearsOldSuffix": " years old",
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    }
+  },
+  "language": {
+    "selectLanguage": "Select Language"
+  }
+}

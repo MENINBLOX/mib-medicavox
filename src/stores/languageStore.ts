@@ -1,6 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
+import { clearTranslationCache, t } from '@/utils/i18n';
 
 export type AppLanguage = 'en' | 'ko' | 'id';
 
@@ -31,6 +32,17 @@ interface LanguageState {
 }
 
 export const useLanguageStore = create<LanguageState>()((set) => ({
-  language: null,
-  setLanguage: (language: AppLanguage) => set({ language }),
+  language: null, // 기본 언어 없음
+  setLanguage: async (language: AppLanguage) => {
+    clearTranslationCache(); // 언어 변경 시 번역 캐시 초기화
+
+    // 새로운 언어의 번역 데이터를 미리 로드
+    try {
+      await t('common.medicavox', language);
+    } catch (error) {
+      console.error('Failed to preload translation data:', error);
+    }
+
+    set({ language });
+  },
 }));

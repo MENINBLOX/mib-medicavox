@@ -1,0 +1,28 @@
+{
+  "common": {
+    "selectLanguage": "언어 선택",
+    "medicavox": "메디카복스"
+  },
+  "home": {
+    "doctor": "의료진",
+    "patient": "환자"
+  },
+  "doctor": {
+    "title": "의료진",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "loggedIn": "의료진 로그인됨",
+    "endConsultation": "진료 종료"
+  },
+  "patient": {
+    "title": "환자",
+    "yearsOldSuffix": "세",
+    "gender": {
+      "male": "남",
+      "female": "여"
+    }
+  },
+  "language": {
+    "selectLanguage": "언어 선택"
+  }
+}

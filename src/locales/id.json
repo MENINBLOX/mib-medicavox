@@ -1,0 +1,28 @@
+{
+  "common": {
+    "selectLanguage": "Pilih Bahasa",
+    "medicavox": "Medicavox"
+  },
+  "home": {
+    "doctor": "Staf Medis",
+    "patient": "Pasien"
+  },
+  "doctor": {
+    "title": "Staf Medis",
+    "login": "Masuk",
+    "logout": "Keluar",
+    "loggedIn": "Staf Medis Telah Masuk",
+    "endConsultation": "Akhiri Konsultasi"
+  },
+  "patient": {
+    "title": "Pasien",
+    "yearsOldSuffix": " tahun",
+    "gender": {
+      "male": "Pria",
+      "female": "Wanita"
+    }
+  },
+  "language": {
+    "selectLanguage": "Pilih Bahasa"
+  }
+}

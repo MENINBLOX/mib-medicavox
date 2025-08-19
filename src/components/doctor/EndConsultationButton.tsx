@@ -3,10 +3,12 @@
 import { Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/authStore';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function EndConsultationButton() {
   const router = useRouter();
   const { logout } = useAuthStore();
+  const { t } = useTranslation();
 
   const handleEndConsultation = () => {
     logout();
@@ -15,7 +17,7 @@ export default function EndConsultationButton() {
 
   return (
     <Button type="primary" danger onClick={handleEndConsultation}>
-      진료 종료
+      {t('doctor.endConsultation')}
     </Button>
   );
 }

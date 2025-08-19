@@ -10,6 +10,7 @@ import LanguageCard from '@/components/language/LanguageCard';
 import Center from '@/components/common/Center';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/authStore';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const { Title } = Typography;
 
@@ -17,6 +18,7 @@ export default function LanguageSelectionPage() {
   const { language, setLanguage } = useLanguageStore();
   const router = useRouter();
   const { isLoggedIn, setPreferredLanguage } = useAuthStore();
+  const { t } = useTranslation();
 
   const handleClickLanguage = (code: AppLanguage) => {
     setLanguage(code);
@@ -29,7 +31,7 @@ export default function LanguageSelectionPage() {
   return (
     <Center>
       <Flex vertical align="center" gap={16}>
-        <Title level={2}>Select Language</Title>
+        <Title level={2}>{t('language.selectLanguage')}</Title>
         <Flex gap={16} justify="center" wrap>
           {LANGUAGE_OPTIONS.map((opt) => (
             <LanguageCard
