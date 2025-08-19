@@ -21,32 +21,32 @@ export default function KeyboardInputBar({
   };
 
   return (
-    <div
+    <Flex
+      align="center"
+      justify="center"
+      gap="small"
       style={{
+        pointerEvents: 'auto',
         width: '100%',
         padding: '12px 16px',
         background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 40%)',
       }}
     >
-      <Flex align="center" gap="small" style={{ pointerEvents: 'auto' }}>
-        <Flex style={{ flex: 1 }}>
-          <Input
-            autoFocus
-            size="large"
-            placeholder="텍스트를 입력해주세요."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            onPressEnter={handleSend}
-          />
-          <Button
-            type="primary"
-            size="large"
-            icon={<SendOutlined />}
-            onClick={handleSend}
-            aria-label="send-text"
-          />
-        </Flex>
-      </Flex>
-    </div>
+      <Input
+        autoFocus
+        size="large"
+        placeholder="텍스트를 입력해주세요."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        onPressEnter={handleSend}
+      />
+      <Button
+        type="primary"
+        size="large"
+        icon={<SendOutlined />}
+        onClick={handleSend}
+        aria-label="send-text"
+      />
+    </Flex>
   );
 }
