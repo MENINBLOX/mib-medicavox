@@ -1,17 +1,15 @@
 'use client';
 
 import { Button, Flex, Input } from 'antd';
-import { SendOutlined, CloseOutlined } from '@ant-design/icons';
+import { SendOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 
 type KeyboardInputBarProps = {
   onSend?: (text: string) => void;
-  onClose?: () => void;
 };
 
 export default function KeyboardInputBar({
   onSend,
-  onClose,
 }: KeyboardInputBarProps): React.JSX.Element {
   const [text, setText] = useState('');
 
@@ -31,11 +29,6 @@ export default function KeyboardInputBar({
       }}
     >
       <Flex align="center" gap="small" style={{ pointerEvents: 'auto' }}>
-        <Button
-          icon={<CloseOutlined />}
-          onClick={onClose}
-          aria-label="close-input"
-        />
         <Flex style={{ flex: 1 }}>
           <Input
             autoFocus

@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, Flex, Tooltip, Drawer } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import KeyboardSvg from './KeyboardSvg';
 import WaveformSvg from './WaveformSvg';
 import KeyboardInputBar from './KeyboardInputBar';
@@ -39,13 +40,13 @@ export default function ChatActions({
         }}
       >
         <Flex gap="middle" justify="center" align="center">
-          <Tooltip title="키보드 채팅">
+          <Tooltip title={showKeyboard ? '입력창 닫기' : '키보드 채팅'}>
             <Button
               shape="circle"
-              type="primary"
+              type={showKeyboard ? 'default' : 'primary'}
               aria-label="keyboard-chat"
               onClick={() => {
-                setShowKeyboard(true);
+                setShowKeyboard((v) => !v);
                 onKeyboardClick?.();
               }}
               style={{
@@ -55,9 +56,16 @@ export default function ChatActions({
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                background: showKeyboard ? '#f3f5f8' : undefined,
+                color: showKeyboard ? '#3b59ff' : undefined,
+                border: showKeyboard ? '1px solid #dbe0ea' : undefined,
               }}
             >
-              <KeyboardSvg size={22} color="#ffffff" />
+              {showKeyboard ? (
+                <CloseOutlined style={{ fontSize: 20, color: '#3b59ff' }} />
+              ) : (
+                <KeyboardSvg size={22} color="#ffffff" />
+              )}
             </Button>
           </Tooltip>
           <Tooltip
@@ -110,10 +118,7 @@ export default function ChatActions({
         }}
         onClose={() => setShowKeyboard(false)}
       >
-        <KeyboardInputBar
-          onSend={() => setShowKeyboard(false)}
-          onClose={() => setShowKeyboard(false)}
-        />
+        <KeyboardInputBar onSend={() => setShowKeyboard(false)} />
       </Drawer>
     </div>
   );
