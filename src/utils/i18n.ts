@@ -27,7 +27,7 @@ export async function t(key: string, language: AppLanguage): Promise<string> {
     }
 
     const keys = key.split('.');
-    let value: any = translationCache[language];
+    let value: string | TranslationData = translationCache[language];
 
     // 중첩된 키를 순회하며 값 찾기
     for (const k of keys) {
@@ -57,7 +57,7 @@ export function tSync(key: string, language: AppLanguage): string {
     }
 
     const keys = key.split('.');
-    let value: any = cached;
+    let value: string | TranslationData = cached;
 
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
@@ -69,6 +69,10 @@ export function tSync(key: string, language: AppLanguage): string {
 
     return typeof value === 'string' ? value : key;
   } catch (error) {
+    console.error(
+      `Translation error for key "${key}" in language "${language}":`,
+      error
+    );
     return key;
   }
 }
