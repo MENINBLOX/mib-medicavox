@@ -15,7 +15,7 @@ export default function KeyboardInputBar({
 
   const handleSend = () => {
     const trimmed = text.trim();
-    if (!trimmed) return;
+    if (trimmed.length === 0) return;
     onSend?.(trimmed);
     setText('');
   };

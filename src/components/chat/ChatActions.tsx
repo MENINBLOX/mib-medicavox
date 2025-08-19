@@ -118,7 +118,7 @@ export default function ChatActions({
         }}
         onClose={() => setShowKeyboard(false)}
       >
-        <KeyboardInputBar onSend={() => setShowKeyboard(false)} />
+        <KeyboardInputBar />
       </Drawer>
     </div>
   );
