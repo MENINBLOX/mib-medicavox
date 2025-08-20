@@ -1,0 +1,34 @@
+{
+  "common": {
+    "selectLanguage": "Pilih Bahasa",
+    "medicavox": "Medicavox"
+  },
+  "home": {
+    "doctor": "Staf Medis",
+    "patient": "Pasien"
+  },
+  "doctor": {
+    "title": "Staf Medis",
+    "login": "Masuk",
+    "logout": "Keluar",
+    "loggedIn": "Staf Medis Telah Masuk",
+    "endConsultation": "Akhiri Konsultasi",
+    "endConfirm": {
+      "title": "Akhiri Konsultasi",
+      "description": "Percakapan dengan pasien akan diakhiri.\nApakah Anda ingin mengakhiri konsultasi?",
+      "ok": "Akhiri konsultasi",
+      "cancel": "Lanjutkan konsultasi"
+    }
+  },
+  "patient": {
+    "title": "Pasien",
+    "yearsOldSuffix": " tahun",
+    "gender": {
+      "male": "Pria",
+      "female": "Wanita"
+    }
+  },
+  "language": {
+    "selectLanguage": "Pilih Bahasa"
+  }
+}

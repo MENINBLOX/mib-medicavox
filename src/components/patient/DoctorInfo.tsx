@@ -1,8 +1,6 @@
 'use client';
 
-import { Flex, Typography } from 'antd';
-
-const { Text } = Typography;
+import { Flex } from 'antd';
 
 interface Doctor {
   id: string;
@@ -21,9 +19,9 @@ export default function DoctorInfo() {
 
   return (
     <Flex align="center" gap="small">
-      <Text strong>{doctor.name}</Text>
-      <Text>{doctor.title}</Text>
-      <Text>{doctor.department}</Text>
+      <span style={{ fontWeight: 'bold' }}>{doctor.name}</span>
+      <span>{doctor.title}</span>
+      <span>{doctor.department}</span>
     </Flex>
   );
 }

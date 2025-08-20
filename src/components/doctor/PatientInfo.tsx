@@ -1,35 +1,41 @@
 'use client';
 
-import { Flex, Typography } from 'antd';
+import { Flex } from 'antd';
+import { useTranslation } from '@/hooks/useTranslation';
 
-const { Text } = Typography;
+type GenderCode = 'male' | 'female';
 
 interface Patient {
   id: string;
   name: string;
-  gender: '남' | '여';
+  gender: GenderCode;
   age: number;
   nationality: string;
   language: string;
 }
 
 export default function PatientInfo() {
+  const { t } = useTranslation();
+
   const patient: Patient = {
     id: '1',
     name: 'Dino',
-    gender: '남' as const,
+    gender: 'male',
     age: 23,
-    nationality: '미국',
+    nationality: 'USA',
     language: 'English',
   };
 
   return (
     <Flex align="center" gap="small">
-      <Text strong>{patient.name}</Text>
-      <Text>{patient.gender}</Text>
-      <Text>{patient.age}세</Text>
-      <Text>{patient.nationality}</Text>
-      <Text>{patient.language}</Text>
+      <span style={{ fontWeight: 'bold' }}>{patient.name}</span>
+      <span>{t(`patient.gender.${patient.gender}`)}</span>
+      <span>
+        {patient.age}
+        {t('patient.yearsOldSuffix')}
+      </span>
+      <span>{patient.nationality}</span>
+      <span>{patient.language}</span>
     </Flex>
   );
 }
