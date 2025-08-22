@@ -7,6 +7,7 @@ import Center from '@/components/common/Center';
 import { useTranslation } from '@/hooks/useTranslation';
 import ChatLog from '@/components/chat/ChatLog';
 import ChatActions from '@/components/chat/ChatActions';
+import VoiceChatProvider from '@/components/chat/VoiceChatProvider';
 
 export default function DoctorPage() {
   const { isLoggedIn, login } = useAuthStore();
@@ -17,6 +18,9 @@ export default function DoctorPage() {
       <>
         <ChatLog />
         <ChatActions />
+        <VoiceChatProvider>
+          <div>loaded</div>
+        </VoiceChatProvider>
       </>
     );
   }
