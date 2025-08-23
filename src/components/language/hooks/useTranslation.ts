@@ -18,8 +18,8 @@ export function useTranslation() {
   }, [language]);
 
   const translate = (key: string): string => {
-    if (isLoaded) {
-      return tSync(key, language);
+    if (!isLoaded) {
+      return key;
     }
     // 로드되지 않은 경우 동기적 번역 시도 (캐시된 데이터가 있으면 사용)
     return tSync(key, language);
