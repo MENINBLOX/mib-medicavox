@@ -2,6 +2,7 @@
 
 import { create } from 'zustand';
 import { IAgoraRTCClient, IMicrophoneAudioTrack } from 'agora-rtc-sdk-ng';
+import { AGORA_APP_ID, AGORA_CHANNEL, AGORA_TOKEN } from './config';
 
 type VoiceUid = number | string | null;
 
@@ -12,6 +13,9 @@ interface VoiceState {
   isLoading: boolean;
   error: Error | null;
   localMicrophoneTrack: IMicrophoneAudioTrack | null;
+  appId: string;
+  channelName: string;
+  token: string;
   setClient: (client: IAgoraRTCClient | null) => void;
   setUid: (uid: VoiceUid) => void;
   setJoinState: (params: {
@@ -36,6 +40,9 @@ const initialState: Omit<
   isLoading: false,
   error: null,
   localMicrophoneTrack: null,
+  appId: AGORA_APP_ID,
+  channelName: AGORA_CHANNEL,
+  token: AGORA_TOKEN,
 };
 
 export const useVoiceStore = create<VoiceState>()((set) => ({
