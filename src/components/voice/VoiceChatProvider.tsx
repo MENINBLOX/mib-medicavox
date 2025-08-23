@@ -1,12 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import type { IAgoraRTCClient } from 'agora-rtc-react';
 import { useVoiceStore } from '@/stores/voiceStore';
-const VoiceChannelManager = dynamic(() => import('./VoiceChannelManager'), {
-  ssr: false,
-});
+import useChannelJoin from './useChannelJoin';
+import useCreateClient from './useCreateClient';
+import useMicrophone from './useMicrophone';
+import dynamic from 'next/dynamic';
 
 const AgoraRTCProviderPrimitive = dynamic(
   () =>
@@ -21,27 +19,16 @@ export default function VoiceChatProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [client, setClient] = useState<IAgoraRTCClient | null>(null);
-  const { setClient: setStoreClient } = useVoiceStore();
+  const { client } = useVoiceStore();
 
-  useEffect(() => {
-    const initSdk = async () => {
-      const AgoraRTC = (await import('agora-rtc-react')).default;
-      const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
-      setClient(client);
-      setStoreClient(client);
-    };
-    initSdk();
-
-    return () => {
-      setStoreClient(null);
-    };
-  }, []);
+  useCreateClient();
+  useChannelJoin();
+  useMicrophone();
 
   if (!client) return <>{children}</>;
+
   return (
     <AgoraRTCProviderPrimitive client={client}>
-      <VoiceChannelManager />
       {children}
     </AgoraRTCProviderPrimitive>
   );

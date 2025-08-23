@@ -1,7 +1,5 @@
-'use client';
-
 import { useVoiceStore } from '@/stores/voiceStore';
-import { useLocalMicrophoneTrack, usePublish, useJoin } from 'agora-rtc-react';
+import { useConnectionState, useJoin } from 'agora-rtc-react';
 import { useEffect } from 'react';
 
 const appId = '811ca6f1d4524a858798a8335c464e93';
@@ -9,12 +7,9 @@ const token =
   '007eJxTYPCM+By+ocZg//VbVRMnLljIaRctbD8pd2fvKYY8AcnwVysUGCwMDZMTzdIMU0xMjUwSLUwtzC0tEi2MjU2TTcxMUi2Nv0asyGgIZGRw8nvHyMgAgSA+D0NJanGJbnJGYl5eag4DAwAkXyHA';
 const channel = 'test-channel';
 
-export default function VoiceChannelManager() {
-  const { setJoinState } = useVoiceStore();
-
-  // 마이크 트랙 생성 (재생하지 않음)
-  const micOn = true;
-  const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
+export default function useChannelJoin() {
+  const { client, setJoinState, setConnectionState } = useVoiceStore();
+  const connectionState = useConnectionState();
 
   // 채널 자동 참여
   const {
@@ -22,10 +17,7 @@ export default function VoiceChannelManager() {
     error,
     isConnected,
     isLoading,
-  } = useJoin({ appid: appId, token, channel }, true);
-
-  // 마이크 트랙 발행 (서버에만 저장되도록 재생 없음)
-  usePublish([localMicrophoneTrack]);
+  } = useJoin({ appid: appId, token, channel }, !!client, client);
 
   // 상태를 store에 동기화
   useEffect(() => {
@@ -37,5 +29,7 @@ export default function VoiceChannelManager() {
     });
   }, [uid, isConnected, isLoading, error, setJoinState]);
 
-  return null;
+  useEffect(() => {
+    setConnectionState(connectionState);
+  }, [connectionState, setConnectionState]);
 }

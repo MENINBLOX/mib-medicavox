@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import type { IAgoraRTCClient } from 'agora-rtc-react';
+import type { ConnectionState, IAgoraRTCClient } from 'agora-rtc-react';
 
 type VoiceUid = number | string | null;
 
@@ -11,6 +11,7 @@ interface VoiceState {
   isConnected: boolean;
   isLoading: boolean;
   error: Error | null;
+  connectionState: ConnectionState;
   setClient: (client: IAgoraRTCClient | null) => void;
   setJoinState: (params: {
     uid: VoiceUid;
@@ -18,15 +19,20 @@ interface VoiceState {
     isLoading: boolean;
     error: Error | null;
   }) => void;
+  setConnectionState: (connectionState: ConnectionState) => void;
   reset: () => void;
 }
 
-const initialState: Omit<VoiceState, 'setClient' | 'setJoinState' | 'reset'> = {
+const initialState: Omit<
+  VoiceState,
+  'setClient' | 'setJoinState' | 'setConnectionState' | 'reset'
+> = {
   client: null,
   uid: null,
   isConnected: false,
   isLoading: false,
   error: null,
+  connectionState: 'DISCONNECTED',
 };
 
 export const useVoiceStore = create<VoiceState>()((set) => ({
@@ -34,5 +40,6 @@ export const useVoiceStore = create<VoiceState>()((set) => ({
   setClient: (client) => set({ client }),
   setJoinState: ({ uid, isConnected, isLoading, error }) =>
     set({ uid, isConnected, isLoading, error }),
+  setConnectionState: (connectionState) => set({ connectionState }),
   reset: () => set({ ...initialState }),
 }));
