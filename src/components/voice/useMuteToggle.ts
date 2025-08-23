@@ -16,7 +16,7 @@ export default function useMuteToggle() {
 
   const isMuted = useMemo(() => {
     return !localMicrophoneTrack?.enabled;
-  }, [localMicrophoneTrack, localMicrophoneTrack?.enabled]);
+  }, [localMicrophoneTrack?.enabled]);
 
   return {
     toggleMute,

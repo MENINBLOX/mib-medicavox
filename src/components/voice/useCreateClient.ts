@@ -15,5 +15,5 @@ export default function useCreateClient() {
     return () => {
       setStoreClient(null);
     };
-  }, []);
+  }, [setStoreClient]);
 }

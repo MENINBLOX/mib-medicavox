@@ -3,9 +3,7 @@ import { useLocalMicrophoneTrack, usePublish } from 'agora-rtc-react';
 import { useEffect } from 'react';
 
 export default function useMicrophone(isMicOn = true) {
-  const { isConnected, setLocalMicrophoneTrack } = useVoiceStore();
-
-  if (!isConnected) return;
+  const { setLocalMicrophoneTrack } = useVoiceStore();
 
   const { localMicrophoneTrack } = useLocalMicrophoneTrack(isMicOn);
 
