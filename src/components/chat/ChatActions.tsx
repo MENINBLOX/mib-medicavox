@@ -72,7 +72,7 @@ export default function ChatActions({
               shape="circle"
               type="default"
               aria-label="toggle-mute"
-              onClick={toggleMute}
+              onClick={() => toggleMute()}
               style={{
                 pointerEvents: 'auto',
                 width: voiceButtonSize,

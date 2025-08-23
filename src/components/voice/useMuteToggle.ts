@@ -1,22 +1,25 @@
 import { useVoiceStore } from '@/stores/voiceStore';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export default function useMuteToggle() {
+  const [isMuted, setIsMuted] = useState(false);
   const { localMicrophoneTrack } = useVoiceStore();
 
-  const toggleMute = useMemo(() => {
+  useEffect(() => {
     if (!localMicrophoneTrack) {
       return () => {};
     } else {
       return () => {
-        localMicrophoneTrack.setEnabled(!localMicrophoneTrack.enabled);
+        localMicrophoneTrack.setEnabled(isMuted);
       };
     }
-  }, [localMicrophoneTrack]);
+  }, [localMicrophoneTrack, isMuted]);
 
-  const isMuted = useMemo(() => {
-    return !localMicrophoneTrack?.enabled;
-  }, [localMicrophoneTrack?.enabled]);
+  const toggleMute = useMemo(() => {
+    return (shouldMute?: boolean) => {
+      setIsMuted(shouldMute ?? !isMuted);
+    };
+  }, [isMuted]);
 
   return {
     toggleMute,
