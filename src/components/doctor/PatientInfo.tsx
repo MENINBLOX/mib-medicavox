@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex } from 'antd';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useTranslation } from '@/components/language/hooks/useTranslation';
 
 type GenderCode = 'male' | 'female';
 

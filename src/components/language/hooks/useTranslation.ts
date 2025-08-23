@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useLanguageStore } from '@/stores/languageStore';
-import { t, tSync } from '@/utils/i18n';
+import { useLanguageStore } from '@/components/language/store';
+import { t, tSync } from '../utils/i18n';
 
 export function useTranslation() {
   const language = useLanguageStore().language ?? 'en';

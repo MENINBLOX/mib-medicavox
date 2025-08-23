@@ -6,7 +6,7 @@ import KeyboardSvg from './KeyboardSvg';
 import WaveformSvg from './WaveformSvg';
 import KeyboardInputBar from './KeyboardInputBar';
 import { useState } from 'react';
-import useMuteToggle from '../voice/useMuteToggle';
+import useMuteToggle from '../voice/hooks/useMuteToggle';
 
 type ChatActionsProps = {
   onKeyboardClick?: () => void;

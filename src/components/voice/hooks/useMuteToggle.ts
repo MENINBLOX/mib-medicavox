@@ -1,4 +1,4 @@
-import { useVoiceStore } from '@/stores/voiceStore';
+import { useVoiceStore } from '@/components/voice/store';
 import { useEffect, useMemo, useState } from 'react';
 
 export default function useMuteToggle() {

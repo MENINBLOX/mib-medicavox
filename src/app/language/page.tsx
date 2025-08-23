@@ -5,12 +5,12 @@ import {
   AppLanguage,
   LANGUAGE_OPTIONS,
   useLanguageStore,
-} from '@/stores/languageStore';
+} from '@/components/language/store';
 import LanguageCard from '@/components/language/LanguageCard';
 import Center from '@/components/common/Center';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/stores/authStore';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useAuthStore } from '@/components/auth/store';
+import { useTranslation } from '@/components/language/hooks/useTranslation';
 
 const { Title } = Typography;
 

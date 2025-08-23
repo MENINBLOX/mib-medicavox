@@ -1,4 +1,4 @@
-import { useVoiceStore } from '@/stores/voiceStore';
+import { useVoiceStore } from '@/components/voice/store';
 import { useEffect } from 'react';
 
 const appId = '811ca6f1d4524a858798a8335c464e93';

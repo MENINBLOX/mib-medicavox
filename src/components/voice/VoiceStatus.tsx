@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert, Flex, Spin, Typography } from 'antd';
-import { useVoiceStore } from '@/stores/voiceStore';
+import { useVoiceStore } from '@/components/voice/store';
 
 export default function VoiceStatus() {
   const { isLoading, isConnected, error, uid } = useVoiceStore();

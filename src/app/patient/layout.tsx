@@ -3,7 +3,7 @@
 import CommonHeader from '@/components/common/CommonHeader';
 import CommonLayout from '@/components/common/CommonLayout';
 import DoctorInfo from '@/components/patient/DoctorInfo';
-import { useLanguageStore } from '@/stores/languageStore';
+import { useLanguageStore } from '@/components/language/store';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

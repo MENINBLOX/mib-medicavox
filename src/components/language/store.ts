@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import { clearTranslationCache, t } from '@/utils/i18n';
+import { clearTranslationCache, t } from './utils/i18n';
 
 export type AppLanguage = 'en' | 'ko' | 'id';
 

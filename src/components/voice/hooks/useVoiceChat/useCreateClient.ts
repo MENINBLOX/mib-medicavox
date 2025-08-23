@@ -1,4 +1,4 @@
-import { useVoiceStore } from '@/stores/voiceStore';
+import { useVoiceStore } from '@/components/voice/store';
 import AgoraRTC from 'agora-rtc-sdk-ng';
 import { useEffect } from 'react';
 
