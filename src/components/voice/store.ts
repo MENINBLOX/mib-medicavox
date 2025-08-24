@@ -1,29 +1,32 @@
 'use client';
 
 import { create } from 'zustand';
-import { IAgoraRTCClient, IMicrophoneAudioTrack } from 'agora-rtc-sdk-ng';
+import {
+  ConnectionState,
+  IAgoraRTCClient,
+  IMicrophoneAudioTrack,
+} from 'agora-rtc-sdk-ng';
 import { AGORA_APP_ID, AGORA_CHANNEL, AGORA_TOKEN } from './config';
 
 type VoiceUid = number | string | null;
 
+type NetworkQuality = 'good' | 'poor' | 'unknown' | 'disconnected';
+
 interface VoiceState {
   client: IAgoraRTCClient | null;
   uid: VoiceUid;
-  isConnected: boolean;
-  isLoading: boolean;
-  error: Error | null;
+  clientConnectionState: ConnectionState;
+  networkQuality: NetworkQuality;
+  peerConnectionState: RTCPeerConnectionState;
   localMicrophoneTrack: IMicrophoneAudioTrack | null;
   appId: string;
   channelName: string;
   token: string;
   setClient: (client: IAgoraRTCClient | null) => void;
   setUid: (uid: VoiceUid) => void;
-  setJoinState: (params: {
-    uid: VoiceUid;
-    isConnected: boolean;
-    isLoading: boolean;
-    error: Error | null;
-  }) => void;
+  setConnectionState: (connectionState: ConnectionState) => void;
+  setNetworkQuality: (networkQuality: NetworkQuality) => void;
+  setPeerConnectionState: (peerConnectionState: RTCPeerConnectionState) => void;
   setLocalMicrophoneTrack: (
     localMicrophoneTrack: IMicrophoneAudioTrack | null
   ) => void;
@@ -32,13 +35,19 @@ interface VoiceState {
 
 const initialState: Omit<
   VoiceState,
-  'setClient' | 'setUid' | 'setJoinState' | 'setLocalMicrophoneTrack' | 'reset'
+  | 'setClient'
+  | 'setUid'
+  | 'setConnectionState'
+  | 'setNetworkQuality'
+  | 'setPeerConnectionState'
+  | 'setLocalMicrophoneTrack'
+  | 'reset'
 > = {
   client: null,
   uid: null,
-  isConnected: false,
-  isLoading: false,
-  error: null,
+  clientConnectionState: 'DISCONNECTED',
+  networkQuality: 'unknown',
+  peerConnectionState: 'closed',
   localMicrophoneTrack: null,
   appId: AGORA_APP_ID,
   channelName: AGORA_CHANNEL,
@@ -49,8 +58,10 @@ export const useVoiceStore = create<VoiceState>()((set) => ({
   ...initialState,
   setClient: (client) => set({ client }),
   setUid: (uid) => set({ uid }),
-  setJoinState: ({ uid, isConnected, isLoading, error }) =>
-    set({ uid, isConnected, isLoading, error }),
+  setConnectionState: (connectionState) =>
+    set({ clientConnectionState: connectionState }),
+  setNetworkQuality: (networkQuality) => set({ networkQuality }),
+  setPeerConnectionState: (peerConnectionState) => set({ peerConnectionState }),
   setLocalMicrophoneTrack: (localMicrophoneTrack) =>
     set({ localMicrophoneTrack }),
   reset: () => set({ ...initialState }),

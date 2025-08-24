@@ -2,23 +2,22 @@
 
 import { Alert, Flex, Spin, Typography } from 'antd';
 import { useVoiceStore } from '@/components/voice/store';
+import { useEffect } from 'react';
 
 export default function VoiceStatus() {
-  const { isLoading, isConnected, error, uid } = useVoiceStore();
+  const { uid, clientConnectionState, peerConnectionState, networkQuality } =
+    useVoiceStore();
 
-  if (error) {
-    return (
-      <Alert
-        type="error"
-        showIcon
-        message="음성 연결 오류"
-        description={String(error.message || error)}
-        style={{ margin: 12 }}
-      />
-    );
-  }
+  useEffect(() => {
+    console.log('clientConnectionState', clientConnectionState);
+    console.log('peerConnectionState', peerConnectionState);
+    console.log('networkQuality', networkQuality);
+  }, [clientConnectionState, peerConnectionState, networkQuality]);
 
-  if (isLoading && !isConnected) {
+  if (
+    clientConnectionState === 'CONNECTING' ||
+    clientConnectionState === 'RECONNECTING'
+  ) {
     return (
       <Flex align="center" justify="center" style={{ padding: 12 }}>
         <Spin />
@@ -29,17 +28,26 @@ export default function VoiceStatus() {
     );
   }
 
-  if (isConnected) {
-    return (
-      <Alert
-        type="success"
-        showIcon
-        message="음성 채널 연결됨"
-        description={uid ? `UID: ${uid}` : undefined}
-        style={{ margin: 12 }}
-      />
-    );
+  let message: string;
+  switch (clientConnectionState) {
+    case 'DISCONNECTED':
+      message = '연결 종료 됨';
+      break;
+    case 'CONNECTED':
+      message = '음성 채널 연결됨';
+      break;
+    default:
+      message = clientConnectionState.toString();
+      break;
   }
 
-  return null;
+  return (
+    <Alert
+      type="success"
+      showIcon
+      message={message}
+      description={uid ? `UID: ${uid}` : undefined}
+      style={{ margin: 12 }}
+    />
+  );
 }
