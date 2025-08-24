@@ -9,6 +9,7 @@ export default function useChannelJoin() {
 
     client.join(appId, channelName, token).then((uid) => {
       setUid(uid);
+      console.log('joined', uid);
     });
 
     return () => {

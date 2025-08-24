@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 import { useVoiceStore } from '../../store';
-import { ConnectionState, NetworkQuality } from 'agora-rtc-sdk-ng';
+import AgoraRTC, {
+  ConnectionState,
+  IAgoraRTCRemoteUser,
+  IDataChannelConfig,
+  NetworkQuality,
+  UID,
+} from 'agora-rtc-sdk-ng';
 
 export default function useConnectionStateSubscription() {
   const {
@@ -9,6 +15,12 @@ export default function useConnectionStateSubscription() {
     setNetworkQuality,
     setPeerConnectionState,
   } = useVoiceStore();
+
+  useEffect(() => {
+    AgoraRTC.onAutoplayFailed = () => {
+      console.log('Autoplay failed!');
+    };
+  }, []);
 
   useEffect(() => {
     if (!client) return;
@@ -75,4 +87,63 @@ export default function useConnectionStateSubscription() {
       );
     };
   }, [client, setPeerConnectionState]);
+
+  useEffect(() => {
+    if (!client) return;
+
+    const handleUserJoined = (user: IAgoraRTCRemoteUser) => {
+      console.log('user-joined', user.uid, user.hasAudio);
+
+      if (user.hasAudio) {
+        user.audioTrack?.play();
+      }
+    };
+
+    client.on('user-joined', handleUserJoined);
+
+    return () => {
+      if (!client) return;
+      client.off('user-joined', handleUserJoined);
+    };
+  }, [client]);
+
+  useEffect(() => {
+    if (!client) return;
+
+    const handleUserLeft = (user: IAgoraRTCRemoteUser, reason: string) => {
+      console.log('user-left', user.uid, reason);
+    };
+
+    client.on('user-left', handleUserLeft);
+
+    return () => {
+      if (!client) return;
+      client.off('user-left', handleUserLeft);
+    };
+  }, [client]);
+
+  useEffect(() => {
+    if (!client) return;
+
+    const handleUserPublished = (
+      user: IAgoraRTCRemoteUser,
+      mediaType: 'audio' | 'video' | 'datachannel',
+      config?: IDataChannelConfig
+    ) => {
+      console.log(
+        'user-published',
+        user.uid,
+        mediaType,
+        config?.id,
+        config?.metadata
+      );
+    };
+
+    client.on('user-published', handleUserPublished);
+
+    return () => {
+      if (!client) return;
+      client.off('user-published', handleUserPublished);
+    };
+  }, [client]);
 }

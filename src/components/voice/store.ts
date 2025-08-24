@@ -22,6 +22,8 @@ interface VoiceState {
   appId: string;
   channelName: string;
   token: string;
+  sttAgentId: string | null;
+  setSttAgentId: (sttAgentId: string | null) => void;
   setClient: (client: IAgoraRTCClient | null) => void;
   setUid: (uid: VoiceUid) => void;
   setConnectionState: (connectionState: ConnectionState) => void;
@@ -41,6 +43,7 @@ const initialState: Omit<
   | 'setNetworkQuality'
   | 'setPeerConnectionState'
   | 'setLocalMicrophoneTrack'
+  | 'setSttAgentId'
   | 'reset'
 > = {
   client: null,
@@ -52,6 +55,7 @@ const initialState: Omit<
   appId: AGORA_APP_ID,
   channelName: AGORA_CHANNEL,
   token: AGORA_TOKEN,
+  sttAgentId: null,
 };
 
 export const useVoiceStore = create<VoiceState>()((set) => ({
@@ -64,5 +68,6 @@ export const useVoiceStore = create<VoiceState>()((set) => ({
   setPeerConnectionState: (peerConnectionState) => set({ peerConnectionState }),
   setLocalMicrophoneTrack: (localMicrophoneTrack) =>
     set({ localMicrophoneTrack }),
+  setSttAgentId: (sttAgentId) => set({ sttAgentId }),
   reset: () => set({ ...initialState }),
 }));

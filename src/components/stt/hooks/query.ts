@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { AppLanguage, getLanguageCode } from '../language/store';
+import { AppLanguage, getLanguageCode } from '../../language/store';
 
 export const useStartSttAgent = () => {
   return useMutation({
     mutationFn: async (language: AppLanguage) => {
       const languageCode = getLanguageCode(language);
 
-      fetch('/api/stt/start', {
+      return fetch('/api/stt/start', {
         method: 'POST',
         body: JSON.stringify({ language: languageCode }),
       })
