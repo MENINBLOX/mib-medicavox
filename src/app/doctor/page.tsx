@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, Flex } from 'antd';
+import { lazy } from 'react';
 import Title from 'antd/es/typography/Title';
 import { useAuthStore } from '@/components/auth/store';
 import Center from '@/components/common/Center';
@@ -8,7 +9,7 @@ import { useTranslation } from '@/components/language/hooks/useTranslation';
 import ChatLog from '@/components/chat/ChatLog';
 import ChatActions from '@/components/chat/ChatActions';
 import VoiceStatus from '@/components/voice/VoiceStatus';
-import { lazy } from 'react';
+import SttProvider from '@/components/stt/SttProvider';
 
 const VoiceProvider = lazy(() => import('@/components/voice/VoiceProvider'));
 
@@ -19,6 +20,7 @@ export default function DoctorPage() {
   if (isLoggedIn) {
     return (
       <VoiceProvider>
+        <SttProvider />
         <VoiceStatus />
         <ChatLog />
         <ChatActions />

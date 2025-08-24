@@ -17,6 +17,19 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   { code: 'id', nativeLabel: 'Bahasa Indonesia', flag: '🇮🇩' },
 ];
 
+export const getLanguageCode = (language: AppLanguage) => {
+  switch (language) {
+    case 'en':
+      return 'en-US';
+    case 'ko':
+      return 'ko-KR';
+    case 'id':
+      return 'id-ID';
+    default:
+      return 'en-US';
+  }
+};
+
 export function getLabelByCode(code: AppLanguage | null): string {
   if (!code) {
     return '언어 선택';
