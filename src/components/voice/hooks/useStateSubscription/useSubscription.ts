@@ -3,7 +3,7 @@ import { useVoiceStore } from '../../store';
 
 export default function useSubscription(
   eventName: string,
-  handler: (...args: any[]) => void
+  handler: (...args: unknown[]) => void
 ) {
   const { client } = useVoiceStore();
 

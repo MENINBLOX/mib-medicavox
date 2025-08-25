@@ -1,7 +1,7 @@
 import { useLanguageStore } from '../language/store';
 import { useVoiceStore } from '../voice/store';
 import { useStartSttAgent } from './hooks/query';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useSttStreamListener from './hooks/useSttStreamListener';
 
 export default function SttProvider() {
@@ -12,13 +12,6 @@ export default function SttProvider() {
   const { mutate: startSttAgent } = useStartSttAgent();
 
   useSttStreamListener();
-
-  // useEffect(() => {
-  //   if (sttAgentId) {
-  //     console.log('sttAgentId', sttAgentId);
-  //     client?.subscribe(sttAgentId, 'audio');
-  //   }
-  // }, [sttAgentId, client]);
 
   useEffect(() => {
     if (language && peerConnectionState === 'connected') {

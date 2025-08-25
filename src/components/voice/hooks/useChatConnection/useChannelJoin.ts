@@ -17,5 +17,5 @@ export default function useChannelJoin() {
         setUid(null);
       });
     };
-  }, [client, setUid]);
+  }, [client, appId, channelName, token, setUid]);
 }
