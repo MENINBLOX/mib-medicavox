@@ -29,6 +29,7 @@ export default function useSttStreamListener(onText?: OnText) {
 
     return () => {
       if (!client) return;
+      console.log('unsubscribing stream-message listener');
       client.off('stream-message', handleStreamMessage);
     };
   }, [client, peerConnectionState]);
