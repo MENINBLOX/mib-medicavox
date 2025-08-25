@@ -20,12 +20,6 @@ export default function useSttStreamListener() {
   const { data: sttAgentStatus } = useQuerySttAgentStatus(sttAgentId);
 
   useEffect(() => {
-    if (sttAgentId) {
-      console.log('sttAgentId', sttAgentId);
-    }
-  }, [sttAgentId]);
-
-  useEffect(() => {
     bufferRef.current.setHandlers({
       onBufferUpdate: (draft, isFinalized) => {
         const normalizedText = bufferRef.current.normalize(draft.tokens);
@@ -53,6 +47,7 @@ export default function useSttStreamListener() {
     console.log('registering stream-message listener');
 
     const handleStreamMessage = (speakerUid: UID, payload: Uint8Array) => {
+      console.log('received stream-message', speakerUid);
       let textstream;
       try {
         textstream = protoRoot.Agora.SpeechToText.Text.decode(payload);
