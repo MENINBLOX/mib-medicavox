@@ -5,14 +5,29 @@ import { useVoiceStore } from '@/components/voice/store';
 import { UID } from 'agora-rtc-sdk-ng';
 
 import protoRoot from '../protobuf/bundle';
+import { useQuerySttAgentStatus } from './query';
 
 const STT_PUB_BOT_UID = process.env.NEXT_PUBLIC_TEMP_AGORA_PUB_BOT_UID ?? ''; // 서버에서 사용한 pubBotUid와 동일하게 유지
 
 type OnText = (msg: any) => void;
 
 export default function useSttStreamListener(onText?: OnText) {
-  const { client, peerConnectionState } = useVoiceStore();
+  const { client, peerConnectionState, sttAgentId } = useVoiceStore();
   //   const textTypeRef = useRef<protobuf.Type | null>(null);
+
+  useEffect(() => {
+    if (sttAgentId) {
+      console.log('sttAgentId', sttAgentId);
+    }
+  }, [sttAgentId]);
+
+  const { data: sttAgentStatus } = useQuerySttAgentStatus(sttAgentId);
+
+  useEffect(() => {
+    if (sttAgentStatus) {
+      console.log('sttAgentStatus', sttAgentStatus);
+    }
+  }, [sttAgentStatus]);
 
   useEffect(() => {
     if (!client || peerConnectionState !== 'connected') return;

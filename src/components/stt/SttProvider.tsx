@@ -7,9 +7,7 @@ import useSttStreamListener from './hooks/useSttStreamListener';
 export default function SttProvider() {
   const { language } = useLanguageStore();
 
-  const { peerConnectionState, client } = useVoiceStore();
-
-  const [sttAgentId, setSttAgentId] = useState<string | null>(null);
+  const { peerConnectionState, setSttAgentId } = useVoiceStore();
 
   const { mutate: startSttAgent } = useStartSttAgent();
 
@@ -27,11 +25,12 @@ export default function SttProvider() {
       console.log('starting STT agent...', language);
       startSttAgent(language, {
         onSuccess: (data) => {
+          console.log('succeed, setting sttAgentId', data.agent_id);
           setSttAgentId(data.agent_id);
         },
       });
     }
-  }, [language, startSttAgent, peerConnectionState]);
+  }, [language, startSttAgent, peerConnectionState, setSttAgentId]);
 
   return null;
 }

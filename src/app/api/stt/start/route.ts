@@ -6,6 +6,7 @@ import {
   botName,
   pubBotUid,
   subBotUid,
+  token,
 } from '../config';
 
 export async function POST(request: NextRequest) {
@@ -17,7 +18,6 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         Authorization: credential,
-        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         maxIdleTime: 5,
@@ -26,7 +26,9 @@ export async function POST(request: NextRequest) {
         rtcConfig: {
           channelName,
           pubBotUid,
+          pubBotToken: token,
           subBotUid,
+          subBotToken: token,
         },
       }),
     }

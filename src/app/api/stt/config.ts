@@ -10,3 +10,5 @@ export const credential = `Basic ${base64Credential}`;
 export const pubBotUid = process.env.NEXT_PUBLIC_TEMP_AGORA_PUB_BOT_UID ?? '';
 export const subBotUid = '88223';
 export const botName = 'stt-bot-id';
+
+export const token = process.env.NEXT_PUBLIC_TEMP_AGORA_TOKEN ?? '';

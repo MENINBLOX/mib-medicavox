@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { AppLanguage, getLanguageCode } from '../../language/store';
 
 export const useStartSttAgent = () => {
@@ -22,4 +22,16 @@ export const useStartSttAgent = () => {
 
 export const useStopSttAgent = () => {};
 
-export const useQuerySttAgentStatus = () => {};
+export const useQuerySttAgentStatus = (agentId: string | null) => {
+  return useQuery({
+    queryKey: ['stt-agent-status', agentId],
+    queryFn: async () => {
+      return fetch(`/api/stt/status?agentId=${agentId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          return data;
+        });
+    },
+    enabled: !!agentId,
+  });
+};
