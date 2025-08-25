@@ -1,7 +1,7 @@
 export type ChatMessage = {
   id: string;
   speakerUid: string;
-  message: string;
+  text: string;
   status: 'speaking' | 'finalized';
   lastModifiedAt?: Date;
 };

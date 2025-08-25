@@ -5,9 +5,8 @@ import { UID } from 'agora-rtc-sdk-ng';
 
 import protoRoot from '../protobuf/bundle';
 import { useQuerySttAgentStatus } from './query';
-import { SttDraftBuffer } from '../buffer';
+import { SttDraftBufferManager } from '../buffer';
 import { useChatStore } from '@/components/chat/store';
-import type { ChatMessage } from '@/components/chat/model';
 import type { SttStreamChunk } from '../model';
 
 const IDLE_MS = 1500;
@@ -15,25 +14,23 @@ const IDLE_MS = 1500;
 export default function useSttStreamListener() {
   const { client, peerConnectionState, sttAgentId } = useVoiceStore();
   const upsertMessage = useChatStore((s) => s.upsertMessage);
-  const bufferRef = useRef(new SttDraftBuffer(IDLE_MS));
+  const bufferRef = useRef(new SttDraftBufferManager(IDLE_MS));
 
   const { data: sttAgentStatus } = useQuerySttAgentStatus(sttAgentId);
 
   useEffect(() => {
     bufferRef.current.setHandlers({
-      onBufferUpdate: (draft, isFinalized) => {
-        const message = isFinalized
-          ? bufferRef.current.normalize(draft.finalizedTokens)
-          : draft.pendingText || '';
+      onBufferUpdate: (drafts, isFinal) => {
+        const firstDraft = drafts[0];
+        const { id: messageId, speakerUid } = firstDraft;
 
-        const chatMessage: ChatMessage = {
-          id: draft.id,
-          speakerUid: draft.speakerUid,
-          message,
-          status: isFinalized ? 'finalized' : 'speaking',
+        upsertMessage({
+          id: messageId,
+          speakerUid,
+          text: drafts.map((d) => d.text).join(' '),
+          status: isFinal ? 'finalized' : 'speaking',
           lastModifiedAt: new Date(),
-        };
-        upsertMessage(chatMessage);
+        });
       },
     });
   }, [upsertMessage]);
@@ -60,6 +57,8 @@ export default function useSttStreamListener() {
       }
 
       const { time, words } = textstream;
+
+      console.log('words', words);
 
       const receivedAt = new Date(Number(time));
 

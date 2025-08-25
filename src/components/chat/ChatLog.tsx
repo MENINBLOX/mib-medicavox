@@ -50,7 +50,7 @@ export default function ChatLog(): React.JSX.Element {
           <ChatBubble
             key={message.id}
             side={message.speakerUid === sttAgentId ? 'right' : 'left'}
-            content={message.message}
+            content={message.text}
             time={message.lastModifiedAt}
             status={message.status === 'finalized' ? 'verifying' : 'speaking'}
           />
