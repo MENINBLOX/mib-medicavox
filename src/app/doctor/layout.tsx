@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex } from 'antd';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/components/auth/store';
 import CommonHeader from '@/components/common/CommonHeader';
 import CommonLayout from '@/components/common/CommonLayout';
 import PatientInfo from '@/components/doctor/PatientInfo';

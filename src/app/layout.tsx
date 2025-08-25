@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import AntdCompatibility from '../components/common/AntdCompatibility';
 import { ConfigProvider } from 'antd';
+import ReactQueryProvider from '@/components/common/ReactQueryProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,22 +28,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ConfigProvider
-          theme={{
-            components: {
-              Layout: {
-                headerBg: '#1F3864',
-                headerColor: '#fff',
+        <ReactQueryProvider>
+          <ConfigProvider
+            theme={{
+              components: {
+                Layout: {
+                  headerBg: '#1F3864',
+                  headerColor: '#fff',
+                },
               },
-            },
-            token: {
-              colorBgLayout: '#ffffff',
-            },
-          }}
-        >
-          <AntdCompatibility />
-          {children}
-        </ConfigProvider>
+              token: {
+                colorBgLayout: '#ffffff',
+              },
+            }}
+          >
+            <AntdCompatibility />
+            {children}
+          </ConfigProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import { Space, Tag, Typography } from 'antd';
 
 export type ChatValidationStatus =
   | 'none'
+  | 'speaking'
   | 'verifying'
   | 'verified'
   | 'flagged'
@@ -12,15 +13,14 @@ export type ChatValidationStatus =
 type ChatBubbleProps = {
   side: 'left' | 'right';
   content: React.ReactNode;
-  time: string | Date;
+  time?: Date;
   status?: ChatValidationStatus; // 검증 상태 표시 및 색상
   maxWidthPct?: number; // 버블 최대 너비 비율 (기본 72)
 };
 
 const { Text } = Typography;
 
-function formatTime(value: string | Date): string {
-  if (typeof value === 'string') return value;
+function formatTime(value: Date): string {
   const d = value;
   const hh = `${d.getHours()}`.padStart(2, '0');
   const mm = `${d.getMinutes()}`.padStart(2, '0');
@@ -29,6 +29,13 @@ function formatTime(value: string | Date): string {
 
 function getStylesByStatus(status: ChatValidationStatus | undefined) {
   switch (status) {
+    case 'speaking':
+      return {
+        background: '#e6f7ff',
+        border: '1px solid #91caff',
+        color: '#0050b3',
+        label: '발화중',
+      } as const;
     case 'verifying':
       return {
         background: '#fffbe6',
@@ -133,9 +140,11 @@ export default function ChatBubble({
               {styles.label}
             </Tag>
           )}
-          <Text type="secondary" style={{ fontSize: 12 }}>
-            {formatTime(time)}
-          </Text>
+          {time && (
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              {formatTime(time)}
+            </Text>
+          )}
         </div>
       </Space>
     </div>

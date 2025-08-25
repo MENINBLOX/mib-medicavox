@@ -1,7 +1,7 @@
 'use client';
 
 import { Modal } from 'antd';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useTranslation } from '@/components/language/hooks/useTranslation';
 
 interface EndConsultationConfirmModalProps {
   open: boolean;

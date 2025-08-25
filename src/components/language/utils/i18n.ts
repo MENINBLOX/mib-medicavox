@@ -1,4 +1,4 @@
-import { AppLanguage } from '@/stores/languageStore';
+import { AppLanguage } from '@/components/language/store';
 
 // 번역 데이터 타입 정의
 type TranslationData = {
@@ -7,9 +7,9 @@ type TranslationData = {
 
 // 번역 데이터를 동적으로 import
 const translations: Record<AppLanguage, () => Promise<TranslationData>> = {
-  en: () => import('@/locales/en.json').then((module) => module.default),
-  ko: () => import('@/locales/ko.json').then((module) => module.default),
-  id: () => import('@/locales/id.json').then((module) => module.default),
+  en: () => import('../locales/en.json').then((module) => module.default),
+  ko: () => import('../locales/ko.json').then((module) => module.default),
+  id: () => import('../locales/id.json').then((module) => module.default),
 };
 
 // 번역 데이터 캐시
