@@ -2,7 +2,7 @@ import useSubscription from './useSubscription';
 import { IAgoraRTCRemoteUser, IDataChannelConfig } from 'agora-rtc-sdk-ng';
 import { useVoiceStore } from '../../store';
 
-export default function useRemoteUser() {
+export default function useEchoRemoteUser() {
   const { client } = useVoiceStore();
   useSubscription('user-joined', (user: IAgoraRTCRemoteUser) => {
     console.log('user-joined', user.uid, user.hasAudio);

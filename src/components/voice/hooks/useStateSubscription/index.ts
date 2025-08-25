@@ -1,7 +1,7 @@
 import useConnectionState from './useConnectionState';
-import useRemoteUser from './useRemoteUser';
+import useEchoRemoteUser from './useEchoRemoteUser';
 
 export default function useStateSubscription() {
   useConnectionState();
-  useRemoteUser();
+  useEchoRemoteUser();
 }
