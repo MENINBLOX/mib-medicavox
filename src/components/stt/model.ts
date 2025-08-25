@@ -1,5 +1,6 @@
-export type SttToken = {
+export type SttStreamChunk = {
   speakerUid: string;
-  tokens: string[];
+  text: string;
+  isFinal: boolean;
   receivedAt: Date;
 };

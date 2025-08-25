@@ -8,7 +8,7 @@ import { useQuerySttAgentStatus } from './query';
 import { SttDraftBuffer } from '../buffer';
 import { useChatStore } from '@/components/chat/store';
 import type { ChatMessage } from '@/components/chat/model';
-import type { SttToken } from '../model';
+import type { SttStreamChunk } from '../model';
 
 const IDLE_MS = 1500;
 
@@ -22,15 +22,18 @@ export default function useSttStreamListener() {
   useEffect(() => {
     bufferRef.current.setHandlers({
       onBufferUpdate: (draft, isFinalized) => {
-        const normalizedText = bufferRef.current.normalize(draft.tokens);
-        const message: ChatMessage = {
+        const message = isFinalized
+          ? bufferRef.current.normalize(draft.finalizedTokens)
+          : draft.pendingText || '';
+
+        const chatMessage: ChatMessage = {
           id: draft.id,
           speakerUid: draft.speakerUid,
-          message: normalizedText,
+          message,
           status: isFinalized ? 'finalized' : 'speaking',
           lastModifiedAt: new Date(),
         };
-        upsertMessage(message);
+        upsertMessage(chatMessage);
       },
     });
   }, [upsertMessage]);
@@ -60,18 +63,15 @@ export default function useSttStreamListener() {
 
       const receivedAt = new Date(Number(time));
 
-      const finalTexts = words
-        .filter((w) => w?.isFinal)
-        .map((w) => String(w.text ?? ''));
-
-      if (finalTexts.length === 0) return;
-
-      const token: SttToken = {
-        speakerUid: speakerUid.toString(),
-        tokens: finalTexts,
-        receivedAt,
-      };
-      bufferRef.current.push(token);
+      words.forEach((word) => {
+        const chunk: SttStreamChunk = {
+          speakerUid: speakerUid.toString(),
+          text: String(word.text ?? ''),
+          isFinal: word.isFinal ?? false,
+          receivedAt,
+        };
+        bufferRef.current.push(chunk);
+      });
     };
 
     client.on('stream-message', handleStreamMessage);

@@ -1,9 +1,10 @@
-import type { SttToken } from './model';
+import type { SttStreamChunk } from './model';
 
 type Draft = {
   id: string;
   speakerUid: string;
-  tokens: string[];
+  finalizedTokens: string[]; // 완료된 토큰(누적)
+  pendingText?: string;
   idleTimer?: number;
 };
 
@@ -28,9 +29,15 @@ export class SttDraftBuffer {
     this.onBufferUpdate = handlers.onBufferUpdate;
   }
 
-  push(token: SttToken) {
-    const draft = this.ensureDraft(token.speakerUid);
-    draft.tokens.push(...token.tokens);
+  push(chunk: SttStreamChunk) {
+    const draft = this.ensureDraft(chunk.speakerUid);
+    if (chunk.isFinal) {
+      draft.pendingText = undefined;
+      draft.finalizedTokens.push(chunk.text);
+    } else {
+      draft.pendingText = chunk.text;
+    }
+
     this.onBufferUpdate?.({ ...draft }, false);
     this.resetTimer(draft);
   }
@@ -45,7 +52,7 @@ export class SttDraftBuffer {
     const existingDraft = this.drafts.get(speakerUid);
     if (existingDraft) return existingDraft;
 
-    const draft: Draft = { id: this.genId(), speakerUid, tokens: [] };
+    const draft: Draft = { id: this.genId(), speakerUid, finalizedTokens: [] };
     this.drafts.set(speakerUid, draft);
     return draft;
   }
@@ -63,7 +70,13 @@ export class SttDraftBuffer {
     if (!draft) return;
 
     this.drafts.delete(speakerUid);
-    this.onBufferUpdate?.({ ...draft }, true);
+    this.onBufferUpdate?.(
+      {
+        ...draft,
+        pendingText: undefined,
+      },
+      true
+    );
   }
 
   private genId(): string {
