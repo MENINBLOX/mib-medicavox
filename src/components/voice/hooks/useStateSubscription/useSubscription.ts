@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { useVoiceStore } from '../../store';
 
-export default function useSubscription(
-  eventName: string,
-  handler: (...args: unknown[]) => void
-) {
+export default function useSubscription(eventName: string, handler: Function) {
   const { client } = useVoiceStore();
 
   useEffect(() => {
