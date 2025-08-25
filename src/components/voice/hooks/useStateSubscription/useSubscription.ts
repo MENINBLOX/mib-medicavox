@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useVoiceStore } from '../../store';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export default function useSubscription(eventName: string, handler: Function) {
   const { client } = useVoiceStore();
 
