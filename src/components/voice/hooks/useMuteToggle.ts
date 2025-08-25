@@ -6,13 +6,9 @@ export default function useMuteToggle() {
   const { localMicrophoneTrack } = useVoiceStore();
 
   useEffect(() => {
-    if (!localMicrophoneTrack) {
-      return () => {};
-    } else {
-      return () => {
-        localMicrophoneTrack.setEnabled(isMuted);
-      };
-    }
+    if (!localMicrophoneTrack) return;
+
+    localMicrophoneTrack.setEnabled(!isMuted);
   }, [localMicrophoneTrack, isMuted]);
 
   const toggleMute = useMemo(() => {
