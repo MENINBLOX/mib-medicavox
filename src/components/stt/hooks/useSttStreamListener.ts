@@ -9,7 +9,7 @@ import { SttDraftBufferManager } from '../buffer';
 import { useChatStore } from '@/components/chat/store';
 import type { SttStreamChunk } from '../model';
 
-const IDLE_MS = 1500;
+const IDLE_MS = 5000;
 
 export default function useSttStreamListener() {
   const { client, peerConnectionState, sttAgentId } = useVoiceStore();
