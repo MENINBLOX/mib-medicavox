@@ -80,8 +80,18 @@ export class SttDraftBufferManager {
     const buffer = this.bufferMap.get(speakerUid);
     if (!buffer) return;
 
-    this.bufferMap.delete(speakerUid);
-    this.onBufferUpdate?.([...buffer.drafts], true);
+    const finalizedDrafts = buffer.drafts.filter((d) => !d.isUpdating);
+    const remainingDrafts = buffer.drafts.filter((d) => d.isUpdating);
+
+    if (finalizedDrafts.length > 0) {
+      this.onBufferUpdate?.([...finalizedDrafts], true);
+    }
+
+    if (remainingDrafts.length === 0) {
+      this.bufferMap.delete(speakerUid);
+    } else {
+      buffer.drafts = remainingDrafts;
+    }
   }
 
   private genId(): string {
