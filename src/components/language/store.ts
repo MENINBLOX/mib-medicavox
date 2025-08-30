@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import { clearTranslationCache, t } from '@/utils/i18n';
+import { clearTranslationCache, t } from './utils/i18n';
 
 export type AppLanguage = 'en' | 'ko' | 'id';
 
@@ -16,6 +16,19 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   { code: 'ko', nativeLabel: '한국어', flag: '🇰🇷' },
   { code: 'id', nativeLabel: 'Bahasa Indonesia', flag: '🇮🇩' },
 ];
+
+export const getLanguageCode = (language: AppLanguage) => {
+  switch (language) {
+    case 'en':
+      return 'en-US';
+    case 'ko':
+      return 'ko-KR';
+    case 'id':
+      return 'id-ID';
+    default:
+      return 'en-US';
+  }
+};
 
 export function getLabelByCode(code: AppLanguage | null): string {
   if (!code) {

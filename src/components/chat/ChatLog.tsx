@@ -1,6 +1,8 @@
 'use client';
 
+import { useVoiceStore } from '../voice/store';
 import ChatBubble from './ChatBubble';
+import { useChatStore } from './store';
 
 function Padding({ children }: { children: React.ReactNode }) {
   return (
@@ -38,66 +40,21 @@ function ScrollArea({ children }: { children: React.ReactNode }) {
 }
 
 export default function ChatLog(): React.JSX.Element {
+  const messages = useChatStore((s) => s.messages);
+  const { sttAgentId } = useVoiceStore();
+
   return (
     <Padding>
       <ScrollArea>
-        <ChatBubble
-          side="left"
-          content="안녕하세요, 어디가 불편하신가요?"
-          time={new Date()}
-          status="verified"
-        />
-        <ChatBubble
-          side="right"
-          content="가끔 어지럽고 가슴이 답답해요."
-          time={new Date()}
-          status="verifying"
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
-        <ChatBubble
-          side="left"
-          content="증상이 언제부터였나요?"
-          time={new Date()}
-        />
+        {messages.map((message) => (
+          <ChatBubble
+            key={message.id}
+            side={message.speakerUid === sttAgentId ? 'right' : 'left'}
+            content={message.text}
+            time={message.lastModifiedAt}
+            status={message.status === 'finalized' ? 'verifying' : 'speaking'}
+          />
+        ))}
       </ScrollArea>
     </Padding>
   );

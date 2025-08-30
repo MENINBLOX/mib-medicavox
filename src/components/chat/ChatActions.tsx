@@ -6,20 +6,19 @@ import KeyboardSvg from './KeyboardSvg';
 import WaveformSvg from './WaveformSvg';
 import KeyboardInputBar from './KeyboardInputBar';
 import { useState } from 'react';
+import useMuteToggle from '../voice/hooks/useMuteToggle';
 
 type ChatActionsProps = {
   onKeyboardClick?: () => void;
-  onVoiceClick?: () => void;
 };
 
 export default function ChatActions({
   onKeyboardClick,
-  onVoiceClick,
 }: ChatActionsProps): React.JSX.Element {
   const keyboardButtonSize = 42;
   const voiceButtonSize = 64;
-  const [isVoiceActive, setIsVoiceActive] = useState(true);
   const [showKeyboard, setShowKeyboard] = useState(false);
+  const { toggleMute, isMuted } = useMuteToggle();
 
   return (
     <div
@@ -68,17 +67,12 @@ export default function ChatActions({
               )}
             </Button>
           </Tooltip>
-          <Tooltip
-            title={isVoiceActive ? '음성 인식 중' : '음성 인식 일시정지'}
-          >
+          <Tooltip title={isMuted ? '음성 인식 일시정지됨' : '음성 인식 중'}>
             <Button
               shape="circle"
               type="default"
-              aria-label="voice-chat"
-              onClick={() => {
-                setIsVoiceActive((prev) => !prev);
-                onVoiceClick?.();
-              }}
+              aria-label="toggle-mute"
+              onClick={() => toggleMute()}
               style={{
                 pointerEvents: 'auto',
                 width: voiceButtonSize,
@@ -86,17 +80,15 @@ export default function ChatActions({
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: isVoiceActive ? '#3b59ff' : '#9aa4b2',
-                background: isVoiceActive ? '#ffffff' : '#f3f5f8',
-                border: isVoiceActive
-                  ? '2px solid #c6d4ff'
-                  : '2px solid #dbe0ea',
-                boxShadow: isVoiceActive
-                  ? '0 8px 24px rgba(0,0,0,0.12), 0 0 0 6px rgba(59,89,255,0.08)'
-                  : '0 6px 16px rgba(0,0,0,0.06)',
+                color: isMuted ? '#9aa4b2' : '#3b59ff',
+                background: isMuted ? '#f3f5f8' : '#ffffff',
+                border: isMuted ? '2px solid #dbe0ea' : '2px solid #c6d4ff',
+                boxShadow: isMuted
+                  ? '0 6px 16px rgba(0,0,0,0.06)'
+                  : '0 8px 24px rgba(0,0,0,0.12), 0 0 0 6px rgba(59,89,255,0.08)',
               }}
             >
-              <WaveformSvg size={32} />
+              <WaveformSvg size={voiceButtonSize / 2} />
             </Button>
           </Tooltip>
         </Flex>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card, Flex, Typography, theme } from 'antd';
-import { LanguageOption } from '@/stores/languageStore';
+import { LanguageOption } from '@/components/language/store';
 
 interface LanguageCardProps {
   language: LanguageOption;

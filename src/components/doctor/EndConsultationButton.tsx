@@ -3,8 +3,8 @@
 import { Button } from 'antd';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/stores/authStore';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useAuthStore } from '@/components/auth/store';
+import { useTranslation } from '@/components/language/hooks/useTranslation';
 import EndConsultationConfirmModal from '@/components/doctor/EndConsultationConfirmModal';
 
 export default function EndConsultationButton() {

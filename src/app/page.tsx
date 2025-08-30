@@ -4,7 +4,7 @@ import { Card, Flex } from 'antd';
 import Title from 'antd/es/typography/Title';
 import Link from 'next/link';
 import Center from '@/components/common/Center';
-import { useTranslation } from '@/hooks/useTranslation';
+import { useTranslation } from '@/components/language/hooks/useTranslation';
 
 export default function Home() {
   const { t } = useTranslation();

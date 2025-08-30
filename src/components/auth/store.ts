@@ -2,7 +2,7 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AppLanguage, useLanguageStore } from '@/stores/languageStore';
+import { AppLanguage, useLanguageStore } from '@/components/language/store';
 
 interface AuthState {
   isLoggedIn: boolean;
